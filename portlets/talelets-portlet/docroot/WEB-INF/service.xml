@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_0_0.dtd">
+<service-builder package-path="com.liferay.talelets.service">
+	<author>Rich Sezov</author>
+	<namespace>talelets</namespace>
+
+	<entity name="Talelet" uuid="true" local-service="true" remote-service="false">
+		<column name="taleId" type="long" primary="true" />
+		<column name="taleParentId" type="long" />
+		<column name="taleStarterId" type="long" />
+		<column name="taleOrder" type="int" />
+		<column name="taleTitle" type="String" />
+		<column name="authorName" type="String" />
+		<column name="taleDate" type="Date" />
+		<column name="dateUpdated" type="Date" />
+		<column name="content" type="String" />
+		
+		<!-- Foreign Keys -->
+		
+		<column name="companyId" type="long"/>
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" />
+		
+		<!-- Workflow --> 
+		
+		<column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
+		
+		<!-- Order -->
+		
+		<order>
+			<order-column name="taleOrder" order-by="asc" />
+		</order>
+		
+		<!-- Finders -->
+		
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		
+		<finder name="G_O" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="taleOrder" />
+			<finder-column name="status" />
+		</finder>
+		
+		<finder name="Tale" return-type="Collection">
+			<finder-column name="taleParentId" />
+			<finder-column name="taleOrder" />
+			<finder-column name="status" />
+		</finder>
+		
+		<finder name="TaleStarter" return-type="Collection">
+			<finder-column name="taleStarterId" />
+		</finder>
+		
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		
+		<finder name="U_G" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="userId" />
+		</finder>
+		
+		<finder name="G_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="status" />
+		</finder>
+		
+		<reference package-path="com.liferay.portal" entity="User" />
+		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
+		
+	</entity>
+</service-builder>

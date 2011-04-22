@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.talelets.service.model.Talelet">
+		<field name="uuid" type="String" />
+		<field name="taleId" type="long" />
+		<field name="taleParentId" type="long" />
+		<field name="taleStarterId" type="long" />
+		<field name="taleOrder" type="int" />
+		<field name="taleTitle" type="String" />
+		<field name="authorName" type="String" />
+		<field name="taleDate" type="Date" />
+		<field name="dateUpdated" type="Date" />
+		<field name="content" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="status" type="int" />
+		<field name="statusByUserId" type="long" />
+		<field name="statusByUserName" type="String" />
+		<field name="statusDate" type="Date" />
+	</model>
+</model-hints>

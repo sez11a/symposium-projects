@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+
+<project name="plugins" basedir="." default="all">
+	<property name="project.dir" value="." />
+
+	<import file="build-common.xml" />
+
+	<target name="all">
+		<antcall target="clean" />
+		<antcall target="deploy" />
+	</target>
+
+	<target name="build-service">
+		<ant dir="portlets" target="build-service" inheritAll="false" />
+		<ant dir="webs" target="build-service" inheritAll="false" />
+	</target>
+
+	<target name="build-summary">
+		<java
+			classname="com.liferay.portal.tools.PluginsSummaryBuilder"
+			classpathref="portal.classpath"
+			fork="true"
+			newenvironment="true"
+		>
+			<jvmarg value="-Dexternal-properties=com/liferay/portal/tools/dependencies/portal-tools.properties" />
+			<jvmarg value="-Dplugins.dir=${project.dir}" />
+		</java>
+
+		<java
+			classname="com.liferay.portal.tools.XSLTBuilder"
+			classpathref="portal.classpath"
+			fork="true"
+			newenvironment="true"
+		>
+			<jvmarg value="-Dexternal-properties=com/liferay/portal/tools/dependencies/portal-tools.properties" />
+			<arg value="${project.dir}/summary.xml" />
+			<arg value="${project.dir}/summary.xsl" />
+			<arg value="${project.dir}/summary.html" />
+		</java>
+	</target>
+
+	<target name="clean">
+		<ant dir="hooks" target="clean" inheritAll="false" />
+		<ant dir="layouttpl" target="clean" inheritAll="false" />
+		<ant dir="portlets" target="clean" inheritAll="false" />
+		<ant dir="themes" target="clean" inheritAll="false" />
+		<ant dir="webs" target="clean" inheritAll="false" />
+	</target>
+
+	<target name="compile">
+		<ant dir="hooks" target="compile" inheritAll="false" />
+		<ant dir="layouttpl" target="compile" inheritAll="false" />
+		<ant dir="portlets" target="compile" inheritAll="false" />
+		<ant dir="themes" target="compile" inheritAll="false" />
+		<ant dir="webs" target="compile" inheritAll="false" />
+	</target>
+
+	<target name="deploy">
+		<ant dir="hooks" target="deploy" inheritAll="false" />
+		<ant dir="layouttpl" target="deploy" inheritAll="false" />
+		<ant dir="portlets" target="deploy" inheritAll="false" />
+		<ant dir="themes" target="deploy" inheritAll="false" />
+		<ant dir="webs" target="deploy" inheritAll="false" />
+	</target>
+
+	<target name="direct-deploy">
+		<ant dir="hooks" target="direct-deploy" inheritAll="false" />
+		<ant dir="layouttpl" target="direct-deploy" inheritAll="false" />
+		<ant dir="portlets" target="direct-deploy" inheritAll="false" />
+		<ant dir="themes" target="direct-deploy" inheritAll="false" />
+		<ant dir="webs" target="direct-deploy" inheritAll="false" />
+	</target>
+
+	<target name="extract-plugins-sdk">
+		<mkdir dir="dist" />
+
+		<delete file="dist/liferay-plugins-sdk-${lp.version}.zip" />
+
+		<zip
+			basedir="."
+			destfile="dist/liferay-plugins-sdk-${lp.version}.zip"
+			excludes="build.*.properties,dist/**,clients/*-client/**,ext/*-ext/**,hooks/*-hook/**,layouttpl/*-layouttpl/**,portlets/*-portlet/**,summary.*,themes/*-theme/**,webs/*-web/**"
+		/>
+	</target>
+
+	<target name="setup-eclipse">
+		<ant dir="hooks" target="clean" inheritAll="false" />
+		<ant dir="portlets" target="clean" inheritAll="false" />
+		<ant dir="webs" target="clean" inheritAll="false" />
+
+		<ant dir="hooks" target="compile" inheritAll="false" />
+		<ant dir="portlets" target="compile" inheritAll="false" />
+		<ant dir="webs" target="compile" inheritAll="false" />
+
+		<ant dir="hooks" target="setup-eclipse" inheritAll="false" />
+		<ant dir="portlets" target="setup-eclipse" inheritAll="false" />
+		<ant dir="webs" target="setup-eclipse" inheritAll="false" />
+	</target>
+
+	<target name="war">
+		<ant dir="hooks" target="war" inheritAll="false" />
+		<ant dir="layouttpl" target="war" inheritAll="false" />
+		<ant dir="portlets" target="war" inheritAll="false" />
+		<ant dir="themes" target="war" inheritAll="false" />
+		<ant dir="webs" target="war" inheritAll="false" />
+	</target>
+
+	<target name="zip-portal">
+		<if>
+			<not>
+				<equals arg1="${app.server.type}" arg2="tomcat" />
+			</not>
+			<then>
+				<fail>
+.
+
+This task only works when the property "app.server.type" is "tomcat". However,
+the outputted files will work in any supported application server.</fail>
+			</then>
+		</if>
+
+		<tstamp>
+			<format property="tstamp.value" pattern="yyyyMMddkkmmssSSS" />
+		</tstamp>
+
+		<zip destfile="dist/liferay-portal-dependencies-${tstamp.value}.zip">
+			<zipfileset
+				dir="${app.server.lib.global.dir}"
+				prefix="liferay-portal-dependencies-${tstamp.value}"
+			/>
+		</zip>
+
+		<delete file="dist/liferay-portal-${lp.version}.war" failonerror="false" />
+
+		<zip
+			basedir="${app.server.portal.dir}"
+			destfile="dist/liferay-portal-${tstamp.value}.war"
+			excludes="html/js/editor/_fckeditor/**,html/js/editor/fckeditor/_samples/**"
+		/>
+
+		<copy todir="${tstamp.value}/WEB-INF/lib">
+			<fileset
+				dir="lib"
+				includes="ccpp.jar"
+			/>
+		</copy>
+
+		<zip
+			basedir="${tstamp.value}"
+			destfile="dist/liferay-portal-${tstamp.value}.war"
+			update="yes"
+		/>
+
+		<delete dir="${tstamp.value}" />
+	</target>
+</project>

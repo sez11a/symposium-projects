@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.liferay.talelets.service.model.Talelet" />
+	<class name="com.liferay.talelets.service.model.impl.TaleletImpl" table="talelets_Talelet">
+		<cache usage="read-write" />
+		<id name="taleId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" column="uuid_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="taleParentId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="taleStarterId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="taleOrder" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="taleTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="authorName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="taleDate" type="org.hibernate.type.TimestampType" />
+		<property name="dateUpdated" type="org.hibernate.type.TimestampType" />
+		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="statusByUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="statusByUserName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="statusDate" type="org.hibernate.type.TimestampType" />
+	</class>
+</hibernate-mapping>

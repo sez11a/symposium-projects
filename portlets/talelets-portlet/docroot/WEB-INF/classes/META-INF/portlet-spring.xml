@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.liferay.talelets.service.service.TaleletLocalService" class="com.liferay.talelets.service.service.impl.TaleletLocalServiceImpl" />
+	<bean id="com.liferay.talelets.service.service.TaleletLocalServiceUtil" class="com.liferay.talelets.service.service.TaleletLocalServiceUtil">
+		<property name="service" ref="com.liferay.talelets.service.service.TaleletLocalService" />
+	</bean>
+	<bean id="com.liferay.talelets.service.service.persistence.TaleletPersistence" class="com.liferay.talelets.service.service.persistence.TaleletPersistenceImpl" parent="basePersistence" />
+</beans>
