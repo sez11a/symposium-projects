@@ -53,7 +53,7 @@ int status = BeanParamUtil.getInteger(talelet, request, "status", WorkflowConsta
   </portlet:actionURL>
   <portlet:renderURL var="cancelURL"><portlet:param name="jspPage" value="/html/view.jsp" /></portlet:renderURL>
 
-<aui:form name="fm" action="<%= updateTaleletURL.toString() %>" method="post">
+<aui:form name="fm" action="<%= updateTaleletURL.toString() %>" onSubmit='<%=renderResponse.getNamespace() + "updateTalelet();" %>' method="post">
 
   <aui:fieldset>
 
@@ -75,13 +75,13 @@ int status = BeanParamUtil.getInteger(talelet, request, "status", WorkflowConsta
 
     <aui:input name="taleTitle" first="true" autoFocus="true" size="45" />
     
-<%--     <aui:field-wrapper label="content">
+     <aui:field-wrapper label="content">
 			<liferay-ui:input-editor width="100%" />
 
 			<aui:input name="content" type="hidden" />
-	</aui:field-wrapper> --%>
+	</aui:field-wrapper>
 	
-	<aui:input name="content" type="textarea" />
+<%--	<aui:input name="content" type="textarea" />  --%>
 
     <aui:input name="categories" type="assetCategories" />
 
@@ -103,3 +103,9 @@ int status = BeanParamUtil.getInteger(talelet, request, "status", WorkflowConsta
   </aui:fieldset>
 
 </aui:form>
+
+<aui:script>
+	function <portlet:namespace />updateTalelet() {
+		document.<portlet:namespace />fm.<portlet:namespace />content.value = window.<portlet:namespace />editor.getHTML();
+	}
+</aui:script>
