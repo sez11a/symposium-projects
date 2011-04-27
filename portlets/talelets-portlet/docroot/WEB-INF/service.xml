@@ -72,6 +72,7 @@
 		
 		<reference package-path="com.liferay.portal" entity="User" />
 		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
+		<reference package-path="com.liferay.portlet.social" entity="SocialActivity" />
 		
 	</entity>
 </service-builder>

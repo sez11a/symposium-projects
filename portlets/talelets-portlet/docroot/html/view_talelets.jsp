@@ -24,7 +24,7 @@
 
 <portlet:renderURL windowState="normal" var="backURL">
 	<portlet:param name="jspPage" value="/html/view_tale_starters.jsp"></portlet:param>
-	<portlet:param name="resourcePrimKey" value="<%=String.valueOf(taleStarter.getTaleId()) %>" />
+	<portlet:param name="resourcePrimKey" value="<%=String.valueOf(tale.getTaleId()) %>" />
 </portlet:renderURL>
 
 <liferay-ui:header backURL="<%= backURL %>" title="Talelets" />
@@ -92,3 +92,26 @@ if (talelets.size()>0) {
 <c:if test='<%= PortletPermissionUtil.contains(permissionChecker, portletDisplay.getId(), "ADD_TALELET") %>'>
   <input type="button" value="<liferay-ui:message key="add-talelet" />" onClick="location.href = '<%=addTaleletURL.toString() %>';" />
 </c:if>
+
+<liferay-ui:ratings className="<%= Talelet.class.getName() %>"
+    classPK="<%= taleStarter.getTaleId() %>" type="stars" />
+
+<liferay-ui:panel-container extended="<%= false %>"
+		id="taleletCommentsPanelContainer" persistState="<%= true %>">
+	
+		<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>"
+	        id="taleletCommentsPanel" persistState="<%= true %>"
+	        title='<%= LanguageUtil.get(pageContext, "comments") %>'>
+	
+			<portlet:actionURL name="invokeTaglibDiscussion" var="discussionURL" />
+	
+			<liferay-ui:discussion className="<%= Talelet.class.getName() %>"
+	            classPK="<%= taleStarter.getTaleId() %>"
+	            formAction="<%= discussionURL %>" formName="fm2"
+	            ratingsEnabled="<%= true %>" redirect="<%= currentURL %>"
+	            subject="<%= taleStarter.getTaleTitle() %>"
+	            userId="<%= taleStarter.getUserId() %>" />
+	
+		</liferay-ui:panel>
+	
+</liferay-ui:panel-container>

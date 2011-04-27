@@ -44,6 +44,7 @@ import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import com.liferay.portlet.asset.service.persistence.AssetEntryPersistence;
+import com.liferay.portlet.social.service.persistence.SocialActivityPersistence;
 
 import com.liferay.talelets.service.NoSuchTaleletException;
 import com.liferay.talelets.service.model.Talelet;
@@ -5153,6 +5154,8 @@ public class TaleletPersistenceImpl extends BasePersistenceImpl<Talelet>
 	protected UserPersistence userPersistence;
 	@BeanReference(type = AssetEntryPersistence.class)
 	protected AssetEntryPersistence assetEntryPersistence;
+	@BeanReference(type = SocialActivityPersistence.class)
+	protected SocialActivityPersistence socialActivityPersistence;
 	private static final String _SQL_SELECT_TALELET = "SELECT talelet FROM Talelet talelet";
 	private static final String _SQL_SELECT_TALELET_WHERE = "SELECT talelet FROM Talelet talelet WHERE ";
 	private static final String _SQL_COUNT_TALELET = "SELECT COUNT(talelet) FROM Talelet talelet";

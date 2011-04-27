@@ -6,6 +6,7 @@
 	<portlet>
 		<portlet-name>talelets</portlet-name>
 		<icon>/icon.png</icon>
+		<social-activity-interpreter-class>com.liferay.talelets.social.TaleletSocialActivityInterpreter</social-activity-interpreter-class>
 		<asset-renderer-factory>com.liferay.talelets.asset.TaleletAssetRendererFactory</asset-renderer-factory>
 		<workflow-handler>com.liferay.talelets.workflow.TaleletWorkflowHandler</workflow-handler>
 		<instanceable>false</instanceable>

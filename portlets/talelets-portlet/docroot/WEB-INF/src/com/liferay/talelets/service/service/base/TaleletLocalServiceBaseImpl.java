@@ -33,6 +33,8 @@ import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portlet.asset.service.AssetEntryLocalService;
 import com.liferay.portlet.asset.service.AssetEntryService;
 import com.liferay.portlet.asset.service.persistence.AssetEntryPersistence;
+import com.liferay.portlet.social.service.SocialActivityLocalService;
+import com.liferay.portlet.social.service.persistence.SocialActivityPersistence;
 
 import com.liferay.talelets.service.model.Talelet;
 import com.liferay.talelets.service.service.TaleletLocalService;
@@ -473,6 +475,44 @@ public abstract class TaleletLocalServiceBaseImpl implements TaleletLocalService
 	}
 
 	/**
+	 * Gets the social activity local service.
+	 *
+	 * @return the social activity local service
+	 */
+	public SocialActivityLocalService getSocialActivityLocalService() {
+		return socialActivityLocalService;
+	}
+
+	/**
+	 * Sets the social activity local service.
+	 *
+	 * @param socialActivityLocalService the social activity local service
+	 */
+	public void setSocialActivityLocalService(
+		SocialActivityLocalService socialActivityLocalService) {
+		this.socialActivityLocalService = socialActivityLocalService;
+	}
+
+	/**
+	 * Gets the social activity persistence.
+	 *
+	 * @return the social activity persistence
+	 */
+	public SocialActivityPersistence getSocialActivityPersistence() {
+		return socialActivityPersistence;
+	}
+
+	/**
+	 * Sets the social activity persistence.
+	 *
+	 * @param socialActivityPersistence the social activity persistence
+	 */
+	public void setSocialActivityPersistence(
+		SocialActivityPersistence socialActivityPersistence) {
+		this.socialActivityPersistence = socialActivityPersistence;
+	}
+
+	/**
 	 * Performs an SQL query.
 	 *
 	 * @param sql the sql query to perform
@@ -515,4 +555,8 @@ public abstract class TaleletLocalServiceBaseImpl implements TaleletLocalService
 	protected AssetEntryService assetEntryService;
 	@BeanReference(type = AssetEntryPersistence.class)
 	protected AssetEntryPersistence assetEntryPersistence;
+	@BeanReference(type = SocialActivityLocalService.class)
+	protected SocialActivityLocalService socialActivityLocalService;
+	@BeanReference(type = SocialActivityPersistence.class)
+	protected SocialActivityPersistence socialActivityPersistence;
 }
