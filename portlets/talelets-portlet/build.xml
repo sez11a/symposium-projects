@@ -2,4 +2,12 @@
 
 <project name="talelets-portlet" basedir="." default="deploy">
 	<import file="../build-common-portlet.xml" />
+
+	<target name="build-portal-lang">
+		<antcall target="build-lang-cmd">
+			<param name="lang.dir" value="docroot/WEB-INF/src/content-portal" />
+			<param name="lang.file" value="Language" />
+		</antcall>
+	</target>
+
 </project>
