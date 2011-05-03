@@ -29,13 +29,38 @@
 
 <liferay-ui:header backURL="<%= backURL %>" title="Talelets" />
 
-<h1><%=tale.getTaleTitle() %></h1>
-<h3><liferay-ui:message key="author" />: <%=tale.getAuthorName() %></h3>
-<p><%=tale.getContent() %></p>
+<%
+User taleAuthor = UserLocalServiceUtil.getUser(tale.getUserId());
+User taleStarterAuthor = UserLocalServiceUtil.getUser(taleStarter.getUserId());
+%>
 
+<table width="100%" border="0">
+<tr>
+<td valign="top">
+<img alt="<liferay-ui:message key="user-portrait" />" class="user-profile-image" src="<%= taleAuthor.getPortraitURL(themeDisplay) %>" /><br>
+<%=tale.getAuthorName() %>
+</td>
+
+<td valign="top">
+<h1><%=tale.getTaleTitle() %></h1>
+<p><%=tale.getContent() %></p>
+</td>
+
+</tr>
+<tr>
+<td valign="top">
+<img alt="<liferay-ui:message key="user-portrait" />" class="user-profile-image" src="<%= taleStarterAuthor.getPortraitURL(themeDisplay) %>" /><br>
+<%=taleStarter.getAuthorName() %>
+</td>
+
+<td valign="top">
 <h2><%=taleStarter.getTaleTitle() %></h2>
-<h3><liferay-ui:message key="author" />: <%=taleStarter.getAuthorName() %></h3>
 <p><%=taleStarter.getContent() %></p>
+</td>
+
+</tr>
+
+</table>
 
 <liferay-ui:search-container emptyResultsMessage="there-are-no-tales" delta="20">
 	<liferay-ui:search-container-results>
@@ -54,6 +79,18 @@
     	className="com.liferay.talelets.service.model.Talelet"
     	keyProperty="taleId"
     	modelVar="talelet">
+    	
+    <liferay-ui:search-container-column-text name="author">
+    
+    <%
+    User user2 = UserLocalServiceUtil.getUser(talelet.getUserId());
+    
+    %>
+    
+    <img alt="<liferay-ui:message key="user-portrait" />" class="user-profile-image" src="<%= user2.getPortraitURL(themeDisplay) %>" /><br>
+    <%=talelet.getAuthorName() %>
+    
+    </liferay-ui:search-container-column-text>
     
     <liferay-ui:search-container-column-text name="talelet">
     	

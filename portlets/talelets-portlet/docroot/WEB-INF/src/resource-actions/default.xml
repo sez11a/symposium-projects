@@ -48,6 +48,15 @@
 				<action-key>ADD_TALELET</action-key>
 			</guest-unsupported>
 		</permissions>
+		<social-equity>
+			<social-equity-mapping>
+				<action-key>ADD_TALELET</action-key>
+				<information-value>10</information-value>
+				<information-lifespan>365</information-lifespan>
+				<participation-value>5</participation-value>
+				<participation-lifespan>365</participation-lifespan>
+			</social-equity-mapping>
+		</social-equity>
 	</model-resource>
 
 </resource-action-mapping>

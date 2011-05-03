@@ -49,7 +49,7 @@
 
 <table width="100%" border="0">
 	<tr>
-	<td>
+	<td valign="top">
 		<liferay-ui:search-container emptyResultsMessage="there-are-no-tales" delta="20">
 	<liferay-ui:search-container-results>
 	    <%
