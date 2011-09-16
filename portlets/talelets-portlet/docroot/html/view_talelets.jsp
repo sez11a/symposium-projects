@@ -22,7 +22,7 @@
 	String redirect = ParamUtil.getString(request, "redirect");
 %>
 
-<portlet:renderURL windowState="normal" var="backURL">
+<portlet:renderURL windowState="maximized" var="backURL">
 	<portlet:param name="jspPage" value="/html/view_tale_starters.jsp"></portlet:param>
 	<portlet:param name="resourcePrimKey" value="<%=String.valueOf(tale.getTaleId()) %>" />
 </portlet:renderURL>
@@ -34,6 +34,7 @@ User taleAuthor = UserLocalServiceUtil.getUser(tale.getUserId());
 User taleStarterAuthor = UserLocalServiceUtil.getUser(taleStarter.getUserId());
 %>
 
+<aui:column columnWidth="75">
 <table width="100%" border="0">
 <tr>
 <td valign="top">
@@ -62,51 +63,53 @@ User taleStarterAuthor = UserLocalServiceUtil.getUser(taleStarter.getUserId());
 
 </table>
 
+	<%-- Talelets --%>
+
 <liferay-ui:search-container emptyResultsMessage="there-are-no-tales" delta="20">
 	<liferay-ui:search-container-results>
 	    <%
-	
+
 	    results = ActionUtil.getTalelets(taleStarter.getTaleId());
 	    total = results.size();
-	
+
 	    pageContext.setAttribute("results", results);
 	    pageContext.setAttribute("total", total);
-	    
+
 	    %>
     </liferay-ui:search-container-results>
-    
+
     <liferay-ui:search-container-row
     	className="com.liferay.talelets.service.model.Talelet"
     	keyProperty="taleId"
     	modelVar="talelet">
-    	
+
     <liferay-ui:search-container-column-text name="author">
-    
+
     <%
     User user2 = UserLocalServiceUtil.getUser(talelet.getUserId());
-    
+
     %>
-    
+
     <img alt="<liferay-ui:message key="user-portrait" />" class="user-profile-image" src="<%= user2.getPortraitURL(themeDisplay) %>" /><br>
     <%=talelet.getAuthorName() %>
-    
+
     </liferay-ui:search-container-column-text>
-    
+
     <liferay-ui:search-container-column-text name="talelet">
-    	
+
     	<h2><%=talelet.getTaleTitle() %></h2>
     	<p><%=talelet.getContent() %></p>
-    	
+
     </liferay-ui:search-container-column-text>
-     
-   
+
+
     <liferay-ui:search-container-column-jsp
         path="/html/tale_actions.jsp"
         align="right"
-        />  
-    
+        />
+
     </liferay-ui:search-container-row>
-    
+
     <liferay-ui:search-iterator />
 
 </liferay-ui:search-container>
@@ -116,7 +119,7 @@ List talelets = (List)pageContext.getAttribute("results");
 Talelet lastTalelet = taleStarter;
 if (talelets.size()>0) {
    lastTalelet = (Talelet)talelets.get(talelets.size()-1);
-} 
+}
 %>
 
 <portlet:renderURL var="addTaleletURL">
@@ -130,25 +133,30 @@ if (talelets.size()>0) {
   <input type="button" value="<liferay-ui:message key="add-talelet" />" onClick="location.href = '<%=addTaleletURL.toString() %>';" />
 </c:if>
 
-<liferay-ui:ratings className="<%= Talelet.class.getName() %>"
+</aui:column>
+
+<aui:column columnWidth="25">
+	<liferay-ui:ratings className="<%= Talelet.class.getName() %>"
     classPK="<%= taleStarter.getTaleId() %>" type="stars" />
 
 <liferay-ui:panel-container extended="<%= false %>"
 		id="taleletCommentsPanelContainer" persistState="<%= true %>">
-	
+
 		<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>"
 	        id="taleletCommentsPanel" persistState="<%= true %>"
 	        title='<%= LanguageUtil.get(pageContext, "comments") %>'>
-	
+
 			<portlet:actionURL name="invokeTaglibDiscussion" var="discussionURL" />
-	
+
 			<liferay-ui:discussion className="<%= Talelet.class.getName() %>"
 	            classPK="<%= taleStarter.getTaleId() %>"
 	            formAction="<%= discussionURL %>" formName="fm2"
 	            ratingsEnabled="<%= true %>" redirect="<%= currentURL %>"
 	            subject="<%= taleStarter.getTaleTitle() %>"
 	            userId="<%= taleStarter.getUserId() %>" />
-	
+
 		</liferay-ui:panel>
-	
+
 </liferay-ui:panel-container>
+</aui:column>
+

@@ -28,6 +28,7 @@
 <%
 
 Talelet talelet = (Talelet)request.getAttribute(WebKeys.TALELET_ENTRY);
+String content = talelet.getContent();
 String redirect = ParamUtil.getString(request, "redirect");
 long taleParentId = ParamUtil.getLong(request, "taleParentId");
 long taleStarterId = ParamUtil.getLong(request, "taleStarterId");
@@ -74,14 +75,12 @@ int status = BeanParamUtil.getInteger(talelet, request, "status", WorkflowConsta
         message="talelet-title-required" />
 
     <aui:input name="taleTitle" first="true" autoFocus="true" size="45" />
-    
+
      <aui:field-wrapper label="content">
 			<liferay-ui:input-editor width="100%" />
 
 			<aui:input name="content" type="hidden" />
 	</aui:field-wrapper>
-	
-<%--	<aui:input name="content" type="textarea" />  --%>
 
     <aui:input name="categories" type="assetCategories" />
 
@@ -107,5 +106,9 @@ int status = BeanParamUtil.getInteger(talelet, request, "status", WorkflowConsta
 <aui:script>
 	function <portlet:namespace />updateTalelet() {
 		document.<portlet:namespace />fm.<portlet:namespace />content.value = window.<portlet:namespace />editor.getHTML();
+	}
+
+	function <portlet:namespace />initEditor() {
+		return "<%= UnicodeFormatter.toString(content) %>";
 	}
 </aui:script>

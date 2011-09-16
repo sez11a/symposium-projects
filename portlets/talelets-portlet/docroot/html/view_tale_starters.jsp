@@ -27,103 +27,103 @@
 	String redirect = ParamUtil.getString(request, "redirect");
 %>
 
-<h1><%=tale.getTaleTitle()%></h1>
-<h2><liferay-ui:message key="author" />: <%=tale.getAuthorName() %></h2>
+<aui:layout>
 
-<p>
-<%=tale.getContent() %>
-</p>
+	<aui:column columnWidth="75">
+		<h1><%=tale.getTaleTitle()%></h1>
+		<h2><liferay-ui:message key="author" />: <%=tale.getAuthorName() %></h2>
 
-<liferay-ui:ratings className="<%= Talelet.class.getName() %>"
-    classPK="<%= tale.getTaleId() %>" type="stars" />
-    
-<portlet:renderURL var="addTaleURL">
-	<portlet:param name="jspPage" value="/html/edit_talelet.jsp"></portlet:param>
-	<portlet:param name="taleParentId" value="<%=String.valueOf(tale.getTaleId()) %>" />
-	<portlet:param name="taleType" value="taleStarter" />
-</portlet:renderURL>
+		<p>
+			<%=tale.getContent() %>
+		</p>
 
-<c:if test='<%= PortletPermissionUtil.contains(permissionChecker, portletDisplay.getId(), "ADD_TALELET") %>'>
-  <input type="button" value="<liferay-ui:message key="add-tale-starter" />" onClick="location.href = '<%=addTaleURL.toString() %>';" />
-</c:if>
+		<liferay-ui:ratings className="<%= Talelet.class.getName() %>"
+    		classPK="<%= tale.getTaleId() %>" type="stars" />
 
-<table width="100%" border="0">
-	<tr>
-	<td valign="top">
-		<liferay-ui:search-container emptyResultsMessage="there-are-no-tales" delta="20">
-	<liferay-ui:search-container-results>
-	    <%
-	
-	    results = ActionUtil.getTaleStartersByDate(tale.getTaleId(), searchContainer.getStart(), searchContainer.getEnd());
-	    total = results.size();
-	
-	    pageContext.setAttribute("results", results);
-	    pageContext.setAttribute("total", total);
-	    
-	    %>
-    </liferay-ui:search-container-results>
-    
-    <liferay-ui:search-container-row
-    	className="com.liferay.talelets.service.model.Talelet"
-    	keyProperty="taleId"
-    	modelVar="talelet">
+		<portlet:renderURL var="addTaleURL">
+			<portlet:param name="jspPage" value="/html/edit_talelet.jsp"></portlet:param>
+			<portlet:param name="taleParentId" value="<%=String.valueOf(tale.getTaleId()) %>" />
+			<portlet:param name="taleType" value="taleStarter" />
+		</portlet:renderURL>
 
-    <%
-    	String summary = StringUtil.shorten(talelet.getContent(), 200);
-    %>
-    
-    <portlet:renderURL windowState="maximized" var="rowURL">
-      <portlet:param name="jspPage" value="/html/view_talelets.jsp" />
-      <portlet:param name="resourcePrimKey" value="<%= String.valueOf(talelet.getTaleId()) %>" />
-      <portlet:param name="redirect" value="<%= currentURL %>" />
-    </portlet:renderURL>
-    
-    <liferay-ui:search-container-column-text href="<%=rowURL %>"
-        name="tale-title"
-        property="taleTitle"
-     />
-    
-    <liferay-ui:search-container-column-text name="tale-opener">
-    	
-    	<%=summary %>
-    	
-    </liferay-ui:search-container-column-text>
-     
-   
-    <liferay-ui:search-container-column-jsp
-        path="/html/tale_actions.jsp"
-        align="right"
-        />  
-    
-    </liferay-ui:search-container-row>
-    
-    <liferay-ui:search-iterator />
+		<c:if test='<%= PortletPermissionUtil.contains(permissionChecker, portletDisplay.getId(), "ADD_TALELET") %>'>
+		  <input type="button" value="<liferay-ui:message key="add-tale-starter" />" onClick="location.href = '<%=addTaleURL.toString() %>';" />
+		</c:if>
 
-</liferay-ui:search-container>
-		
-	</td>
-	<td>
-	
 		<liferay-ui:panel-container extended="<%= false %>"
 		id="taleletCommentsPanelContainer" persistState="<%= true %>">
-	
+
 		<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>"
 	        id="taleletCommentsPanel" persistState="<%= true %>"
 	        title='<%= LanguageUtil.get(pageContext, "comments") %>'>
-	
+
 			<portlet:actionURL name="invokeTaglibDiscussion" var="discussionURL" />
-	
+
 			<liferay-ui:discussion className="<%= Talelet.class.getName() %>"
 	            classPK="<%= tale.getTaleId() %>"
 	            formAction="<%= discussionURL %>" formName="fm2"
 	            ratingsEnabled="<%= true %>" redirect="<%= currentURL %>"
 	            subject="<%= tale.getTaleTitle() %>"
 	            userId="<%= tale.getUserId() %>" />
-	
+
 		</liferay-ui:panel>
-	
+
 		</liferay-ui:panel-container>
-	</td>
-	</tr>
-</table>
+
+	</aui:column>
+
+	<aui:column columnWidth="25">
+
+			<liferay-ui:search-container emptyResultsMessage="there-are-no-tales" delta="20">
+		<liferay-ui:search-container-results>
+		    <%
+
+		    results = ActionUtil.getTaleStartersByDate(tale.getTaleId(), searchContainer.getStart(), searchContainer.getEnd());
+		    total = results.size();
+
+		    pageContext.setAttribute("results", results);
+		    pageContext.setAttribute("total", total);
+
+		    %>
+	    </liferay-ui:search-container-results>
+
+	    <liferay-ui:search-container-row
+	    	className="com.liferay.talelets.service.model.Talelet"
+	    	keyProperty="taleId"
+	    	modelVar="talelet">
+
+	    <%
+	    	String summary = StringUtil.shorten(talelet.getContent(), 200);
+	    	String title = talelet.getTaleTitle();
+	    %>
+
+	    <portlet:renderURL windowState="maximized" var="rowURL">
+	      <portlet:param name="jspPage" value="/html/view_talelets.jsp" />
+	      <portlet:param name="resourcePrimKey" value="<%= String.valueOf(talelet.getTaleId()) %>" />
+	      <portlet:param name="redirect" value="<%= currentURL %>" />
+	    </portlet:renderURL>
+
+	    <liferay-ui:search-container-column-text name="tale-chains">
+
+			<h3><a href="<%=rowURL.toString() %>"><%=title %></a></h3>
+	    	<%=summary %>
+
+	    </liferay-ui:search-container-column-text>
+
+
+	    <liferay-ui:search-container-column-jsp
+	        path="/html/tale_actions.jsp"
+	        align="right"
+	        />
+
+	    </liferay-ui:search-container-row>
+
+	    <liferay-ui:search-iterator />
+
+	</liferay-ui:search-container>
+
+	</aui:column>
+
+</aui:layout>
+
 
