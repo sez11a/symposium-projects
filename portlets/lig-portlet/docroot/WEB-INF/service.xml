@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_0_0.dtd">
+<service-builder package-path="com.liferay.lig">
+  <author>Rich Sezov</author>
+  <namespace>insults</namespace>
+
+  <entity name="Insult" local-service="true" remote-service="true">
+
+  <!-- PK Fields -->
+
+    <column name="insultId" type="long" primary="true" />
+
+  <!-- Other Fields -->
+
+    <column name="adjectiveOne" type="String" />
+    <column name="directObject" type="String" />
+    <column name="adjectiveTwo" type="String" />
+    <column name="objPreposition" type="String" />
+
+   <!-- Foreign Keys -->
+
+    <column name="companyId" type="long" />
+    <column name="groupId" type="long" />
+    <column name="userId" type="long" />
+
+   <!--  Finders -->
+
+    <finder name="GroupId" return-type="Collection">
+      <finder-column name="groupId" />
+    </finder>
+
+    <finder name="AdjectiveOne" return-type="Collection">
+      <finder-column name="adjectiveOne" />
+    </finder>
+
+    <finder name="DirectObject" return-type="Collection">
+      <finder-column name="directObject" />
+    </finder>
+
+    <finder name="AdjectiveTwo" return-type="Collection">
+      <finder-column name="adjectiveTwo" />
+    </finder>
+
+    <finder name="ObjPreposition" return-type="Collection">
+      <finder-column name="objPreposition" />
+    </finder>
+
+  </entity>
+
+</service-builder>

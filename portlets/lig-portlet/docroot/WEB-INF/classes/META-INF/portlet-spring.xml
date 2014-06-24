@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.liferay.lig.service.InsultLocalService" class="com.liferay.lig.service.impl.InsultLocalServiceImpl" />
+	<bean id="com.liferay.lig.service.InsultLocalServiceUtil" class="com.liferay.lig.service.InsultLocalServiceUtil">
+		<property name="service" ref="com.liferay.lig.service.InsultLocalService" />
+	</bean>
+	<bean id="com.liferay.lig.service.InsultService" class="com.liferay.lig.service.impl.InsultServiceImpl" />
+	<bean id="com.liferay.lig.service.InsultServiceUtil" class="com.liferay.lig.service.InsultServiceUtil">
+		<property name="service" ref="com.liferay.lig.service.InsultService" />
+	</bean>
+	<bean id="com.liferay.lig.service.persistence.InsultPersistence" class="com.liferay.lig.service.persistence.InsultPersistenceImpl" parent="basePersistence" />
+</beans>

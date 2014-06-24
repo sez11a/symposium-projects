@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model-hints>
+	<model name="com.liferay.lig.model.Insult">
+		<field name="insultId" type="long" />
+		<field name="adjectiveOne" type="String" />
+		<field name="directObject" type="String" />
+		<field name="adjectiveTwo" type="String" />
+		<field name="objPreposition" type="String" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+	</model>
+</model-hints>

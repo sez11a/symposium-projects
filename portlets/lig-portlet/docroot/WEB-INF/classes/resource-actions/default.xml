@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource-action-mapping>
+
+  <portlet-resource>
+    <portlet-name>lig-admin</portlet-name>
+    <supports>
+      <action-key>ADD_INSULT</action-key>
+      <action-key>VIEW</action-key>
+    </supports>
+    <community-defaults>
+      <action-key>VIEW</action-key>
+    </community-defaults>
+    <guest-defaults>
+      <action-key>VIEW</action-key>
+    </guest-defaults>
+
+    <guest-unsupported>
+      <action-key>ADD_INSULT</action-key>
+    </guest-unsupported>
+
+  </portlet-resource>
+
+  <model-resource>
+    <model-name>com.liferay.lig.model.Insult</model-name>
+    <portlet-ref>
+      <portlet-name>lig-admin</portlet-name>
+    </portlet-ref>
+    <supports>
+      <action-key>DELETE</action-key>
+      <action-key>PERMISSIONS</action-key>
+      <action-key>UPDATE</action-key>
+      <action-key>VIEW</action-key>
+    </supports>
+    <community-defaults>
+      <action-key>VIEW</action-key>
+    </community-defaults>
+    <guest-defaults>
+      <action-key>VIEW</action-key>
+    </guest-defaults>
+    <guest-unsupported>
+      <action-key>UPDATE</action-key>
+    </guest-unsupported>
+  </model-resource>
+
+</resource-action-mapping>

@@ -1,0 +1,1 @@
+Liferay.Service.register("Liferay.Service.insults", "com.liferay.lig.service");
